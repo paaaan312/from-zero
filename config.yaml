@@ -1,0 +1,63 @@
+# From-Zero Coding Agent — Default Configuration
+# Copy this file and modify for your setup.
+
+llm:
+  provider: openai          # openai, anthropic, deepseek
+  model: gpt-4o             # or: claude-sonnet-5, deepseek-v3
+  api_key: ""               # Set via env: OPENAI_API_KEY or ANTHROPIC_API_KEY
+  api_base: https://api.openai.com/v1
+  max_tokens: 4096
+  temperature: 0.7
+  top_p: 1.0
+
+permissions:
+  mode: ask                 # ask: prompt user, auto_allow: skip prompts, strict: deny by default
+  allowed_tools: []         # Tools always allowed (glob patterns: "read_*", "glob", "grep")
+  denied_tools: []          # Tools always denied
+  allowed_paths: ["./"]     # Paths where writes are allowed
+  denied_paths: []
+  ask_once_per_session: true  # Only ask once per tool per session
+
+context:
+  model_context_limit: 128000
+  reserve_output_tokens: 4096
+  summarize_at_pct: 0.85    # Summarize when 85% of context window is used
+
+memory:
+  enabled: true
+  memory_dir: .agent/memory
+  index_file: MEMORY.md
+  max_recall: 5
+
+skills:
+  enabled: true
+  skills_dir: .agent/skills
+  builtin_skills:
+    - code-review
+    - simplify
+
+multi_agent:
+  enabled: true
+  max_parallel: 5
+  default_model: gpt-4o-mini  # Cheaper model for sub-agents
+  isolation_mode: inline
+
+mcp:
+  enabled: false
+  servers: []
+  # Example MCP server config:
+  # servers:
+  #   - name: filesystem
+  #     command: npx
+  #     args: ["-y", "@modelcontextprotocol/server-filesystem", "."]
+
+autonomy:
+  enabled: true
+  checkpoint_dir: .agent/checkpoints
+  checkpoint_interval: 60    # seconds between auto-saves
+  max_idle_seconds: 300      # idle timeout for auto-pause
+
+# General settings
+workspace_dir: "."
+max_tool_iterations: 50
+debug: false

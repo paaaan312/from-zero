@@ -1,0 +1,18 @@
+# Core
+pydantic>=2.0.0
+pyyaml>=6.0
+httpx>=0.25.0
+tiktoken>=0.5.0
+
+# CLI
+prompt-toolkit>=3.0.0
+rich>=13.0.0
+
+# Async
+anyio>=4.0.0
+
+# MCP
+mcp>=1.0.0
+
+# Scheduling (for autonomy)
+croniter>=2.0.0
